@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Retrieve Package</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Retrieve Package</h1>
+
+        <form id="authForm">
+            <label for="phoneNumber">Enter Your Phone Number:</label>
+            <input type="tel" id="phoneNumber" required>
+
+            <button type="submit">View Packages</button>
+        </form>
+
+        <div id="packageList" style="display: none;">
+            <h2>Your Packages</h2>
+            <ul id="packages">
+                <!-- Packages will be displayed here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="retrieve.js"></script>
+</body>
+</html>

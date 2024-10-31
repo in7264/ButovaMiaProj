@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1",
+        "name": "3432",
+        "city": "Київ",
+        "lockers": [
+            {
+                "type": "мал",
+                "width": 10,
+                "length": 10,
+                "quantity": 4,
+                "posts": [
+                    {
+                        "id": "id1",
+                        "status": "occupied",
+                        "assignedTo": "иван",
+                        "sender": {
+                            "name": "иван",
+                            "phone": "0503056262"
+                        },
+                        "recipient": {
+                            "name": "неиван",
+                            "phone": "0664376882"
+                        },
+                        "purpose": "отправка",
+                        "unicid": 1730387188915
+                    },
+                    {
+                        "id": "id2",
+                        "status": "free"
+                    },
+                    {
+                        "id": "id3",
+                        "status": "free"
+                    },
+                    {
+                        "id": "id4",
+                        "status": "free"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "6464",
+        "city": "Лубни",
+        "lockers": [
+            {
+                "type": "мал",
+                "width": 10,
+                "length": 10,
+                "quantity": 3,
+                "posts": [
+                    {
+                        "id": "id1",
+                        "status": "occupied",
+                        "assignedTo": "неиван",
+                        "sender": {
+                            "name": "иван",
+                            "phone": "0503056262"
+                        },
+                        "recipient": {
+                            "name": "неиван",
+                            "phone": "0664376882"
+                        },
+                        "purpose": "получение",
+                        "unicid": 1730387188915
+                    },
+                    {
+                        "id": "id2",
+                        "status": "free"
+                    },
+                    {
+                        "id": "id3",
+                        "status": "free"
+                    }
+                ]
+            }
+        ]
+    }
+]
