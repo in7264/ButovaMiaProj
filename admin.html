@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parcel Terminal Manager</title>
+    <title>Менеджер терміналу посилок</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Parcel Terminal Manager</h1>
+    <h1>Менеджер терміналу посилок</h1>
     
-    <button onclick="window.location.href='index.html'">Back to Parcel Terminal</button>
+    <button onclick="window.location.href='index.html'">Назад до терміналу посилок</button>
     
     <form id="terminalForm">
-        <input type="text" id="name" placeholder="Terminal Name" required>
-        <input type="text" id="city" placeholder="City" required>
+        <input type="text" id="name" placeholder="Назва терміналу" required>
+        <input type="text" id="city" placeholder="Місто" required>
         
         <div id="lockerTypesContainer">
-            <h3>Locker Types</h3>
+            <h3>Типи шафок</h3>
             <div class="lockerType" id="lockerTypeTemplate">
-                <input type="text" class="lockerTypeInput" placeholder="Locker Type" required>
-                <input type="number" class="lockerWidthInput" placeholder="Width (cm)" required>
-                <input type="number" class="lockerLengthInput" placeholder="Length (cm)" required>
-                <input type="number" class="lockerQuantityInput" placeholder="Quantity" required>
-                <button type="button" class="removeLockerTypeButton">Remove</button>
+                <input type="text" class="lockerTypeInput" placeholder="Тип шафки" required>
+                <input type="number" class="lockerWidthInput" placeholder="Ширина (см)" required>
+                <input type="number" class="lockerLengthInput" placeholder="Довжина (см)" required>
+                <input type="number" class="lockerQuantityInput" placeholder="Кількість" required>
+                <button type="button" class="removeLockerTypeButton">Видалити</button>
             </div>
         </div>
-        <button type="button" id="addLockerTypeButton">Add Locker Type</button>
-        <button type="submit">Add Terminal</button>
+        <button type="button" id="addLockerTypeButton">Додати тип шафки</button>
+        <button type="submit">Додати термінал</button>
     </form>
 
-    <h2>Existing Terminals</h2>
+    <h2>Існуючі термінали</h2>
     <ul id="terminalList"></ul>
     
-    <!-- Modal for Terminal Details -->
+    <!-- Модальне вікно для деталей терміналу -->
     <div id="terminalModal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="closeModal">&times;</span>
-            <h2>Terminal Details</h2>
+            <h2>Деталі терміналу</h2>
             <div id="modalDetails"></div>
         </div>
     </div>

@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveTerminals(terminals);
         terminalForm.reset();
         displayTerminals(); // Refresh terminal list
-        alert('Terminal added successfully!');
+        alert('Термінал успішно додано!'); // Alert message translated
     };
 
     // Add locker type fields
@@ -77,14 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
             li.textContent = `${terminal.name} (${terminal.city})`;
             
             const viewButton = document.createElement('button');
-            viewButton.textContent = 'View Details';
+            viewButton.textContent = 'Переглянути деталі'; // Translated
             viewButton.onclick = () => {
                 showTerminalDetails(terminal);
             };
             li.appendChild(viewButton);
             
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
+            deleteButton.textContent = 'Видалити'; // Translated
             deleteButton.onclick = () => {
                 deleteTerminal(terminal.id);
             };
@@ -94,25 +94,24 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Show terminal details in modal
-    // Show terminal details in modal
     const showTerminalDetails = (terminal) => {
         modalDetails.innerHTML = `
-            <p><strong>Name:</strong> ${terminal.name}</p>
-            <p><strong>City:</strong> ${terminal.city}</p>
-            <p><strong>Lockers:</strong></p>
+            <p><strong>Назва:</strong> ${terminal.name}</p> <!-- Translated -->
+            <p><strong>Місто:</strong> ${terminal.city}</p> <!-- Translated -->
+            <p><strong>Шафки:</strong></p> <!-- Translated -->
             <ul>
                 ${terminal.lockers.map(locker => `
                     <li>
-                        <p>Type: ${locker.type}, Width: ${locker.width} cm, Length: ${locker.length} cm, Quantity: ${locker.quantity}</p>
+                        <p>Тип: ${locker.type}, Ширина: ${locker.width} см, Довжина: ${locker.length} см, Кількість: ${locker.quantity}</p> <!-- Translated -->
                         <ul>
                             ${locker.posts.map(post => `
                                 <li>
-                                    Locker ID: ${post.id} - Status: ${post.status} 
+                                    ID шафки: ${post.id} - Статус: ${post.status} 
                                     ${post.status === 'occupied' ? `
-                                        <br><strong>Assigned To:</strong> ${post.assignedTo}
-                                        <br><strong>Sender:</strong> ${post.sender.name}, Phone: ${post.sender.phone}
-                                        <br><strong>Recipient:</strong> ${post.recipient.name}, Phone: ${post.recipient.phone}
-                                        <br><strong>Purpose:</strong> ${post.purpose === 'отправка' ? 'Отправка' : 'Получение'}
+                                        <br><strong>Призначено для:</strong> ${post.assignedTo}
+                                        <br><strong>Відправник:</strong> ${post.sender.name}, Телефон: ${post.sender.phone}
+                                        <br><strong>Одержувач:</strong> ${post.recipient.name}, Телефон: ${post.recipient.phone}
+                                        <br><strong>Призначення:</strong> ${post.purpose === 'отправка' ? 'Відправка' : 'Отримання'}
                                     ` : ''}
                                 </li>
                             `).join('')}
@@ -120,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </li>
                 `).join('')}
             </ul>
-            <button id="clearLockersButton">Освободить все ячейки от отправлений</button>
+            <button id="clearLockersButton">Очистити всі ячейки від відправлень</button> <!-- Translated -->
         `;
         
         terminalModal.style.display = 'block'; // Show modal
@@ -133,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     
     const clearAllLockers = (terminal) => {
-        const terminals = loadTerminals(); // Загружаем все терминалы из локального хранилища
+        const terminals = loadTerminals(); // Загружаємо всі термінали з локального хранилища
         const terminalIndex = terminals.findIndex(t => t.id === terminal.id);
     
         if (terminalIndex !== -1) {
-            // Освобождаем ячейки у терминала
+            // Освобождаем ячейки у термінала
             terminals[terminalIndex].lockers.forEach(locker => {
                 locker.posts.forEach(post => {
                     if (post.status === 'occupied' && post.purpose === 'отправка') {
@@ -152,10 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
             saveTerminals(terminals); // Сохраняем обновленный массив терминалов в локальное хранилище
         }
     };
-    
-    
-    
-
 
     // Close modal
     closeModal.onclick = () => {
@@ -168,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         terminals = terminals.filter(terminal => terminal.id !== id);
         saveTerminals(terminals);
         displayTerminals(); // Refresh terminal list
-        alert('Terminal deleted successfully!');
+        alert('Термінал успішно видалено!'); // Alert message translated
     };
 
     // Close modal when clicking outside of it

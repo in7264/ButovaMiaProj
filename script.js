@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const populateCitiesAndTerminals = () => {
         const terminals = loadTerminals();
         const cities = new Set();
-
+    
         terminals.forEach(terminal => {
             cities.add(terminal.city);
         });
-
+    
         cities.forEach(city => {
             const option = document.createElement('option');
             option.value = city;
@@ -37,15 +37,28 @@ document.addEventListener("DOMContentLoaded", () => {
             senderCitySelect.appendChild(option);
             receiverCitySelect.appendChild(option.cloneNode(true));
         });
-
+    
+        // Automatically select the first city
+        if (senderCitySelect.options.length > 0) {
+            senderCitySelect.selectedIndex = 0;
+            populateTerminals(senderTerminalSelect, senderCitySelect.value, terminals);
+        }
+    
+        // Automatically select the first city for receiver
+        if (receiverCitySelect.options.length > 0) {
+            receiverCitySelect.selectedIndex = 0;
+            populateTerminals(receiverTerminalSelect, receiverCitySelect.value, terminals);
+        }
+    
         senderCitySelect.addEventListener('change', () => {
             populateTerminals(senderTerminalSelect, senderCitySelect.value, terminals);
         });
-
+    
         receiverCitySelect.addEventListener('change', () => {
             populateTerminals(receiverTerminalSelect, receiverCitySelect.value, terminals);
         });
     };
+    
 
     const populateTerminals = (terminalSelect, city, terminals) => {
         terminalSelect.innerHTML = '';

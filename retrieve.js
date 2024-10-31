@@ -8,23 +8,23 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const phoneNumber = document.getElementById("phoneNumber").value;
         
-        // Logic to find packages by phone number, where purpose is "получение"
+        // Логіка для пошуку пакетів за номером телефону, де мета - "отримання"
         const userPackages = findUserPackages(phoneNumber);
         
         if (userPackages.length > 0) {
             packages.innerHTML = userPackages.map(pkg => `
                 <li>
-                    <strong>Package ID:</strong> ${pkg.id}<br>
-                    <strong>Status:</strong> ${pkg.status}<br>
-                    <strong>Locker Type:</strong> ${pkg.lockerId}<br>
-                    <strong>Terminal:</strong> ${pkg.terminalName}, ${pkg.terminalCity}<br>
-                    <strong>Locker Dimensions:</strong> ${pkg.lockerWidth} cm x ${pkg.lockerLength} cm<br>
-                    <strong>Purpose:</strong> ${pkg.purpose} <br>
-                    <button onclick="receivePackage('${pkg.terminalId}', '${pkg.lockerId}', '${pkg.id}')">Получить</button> <!-- Retrieve button -->
+                    <strong>ID посилки:</strong> ${pkg.id}<br>
+                    <strong>Статус:</strong> ${pkg.status}<br>
+                    <strong>Тип ячейки:</strong> ${pkg.lockerId}<br>
+                    <strong>Термінал:</strong> ${pkg.terminalName}, ${pkg.terminalCity}<br>
+                    <strong>Розміри ячейки:</strong> ${pkg.lockerWidth} см x ${pkg.lockerLength} см<br>
+                    <strong>Мета:</strong> ${pkg.purpose} <br>
+                    <button onclick="receivePackage('${pkg.terminalId}', '${pkg.lockerId}', '${pkg.id}')">Отримати</button> <!-- Кнопка отримання -->
                 </li>
             `).join('');
         } else {
-            packages.innerHTML = `<li>No packages found for this phone number.</li>`;
+            packages.innerHTML = `<li>Не знайдено пакетів для цього номера телефону.</li>`;
         }
 
         authForm.style.display = "none";
@@ -35,21 +35,21 @@ document.addEventListener("DOMContentLoaded", () => {
 function findUserPackages(phoneNumber) {
     const terminals = JSON.parse(localStorage.getItem('parcelTerminals')) || [];
     const foundPackages = [];
-    const uniqueUnicids = new Map(); // Map for tracking packages by unicid
+    const uniqueUnicids = new Map(); // Карта для відстеження пакетів за unicid
 
     terminals.forEach((terminal) => {
         terminal.lockers.forEach((locker) => {
             locker.posts.forEach((post) => {
-                console.log(`Checking post with ID: ${post.id}, Sender Phone: ${post.sender?.phone}, Recipient Phone: ${post.recipient?.phone}, unicid: ${post.unicid}, purpose: ${post.purpose}`);
+                console.log(`Перевірка поста з ID: ${post.id}, Телефон відправника: ${post.sender?.phone}, Телефон отримувача: ${post.recipient?.phone}, unicid: ${post.unicid}, мета: ${post.purpose}`);
 
-                // Only match if the phone number is the recipient's
+                // Відповідає лише за номер телефону отримувача
                 const isRecipientMatch = post.recipient?.phone === phoneNumber;
 
                 if (isRecipientMatch) {
                     if (uniqueUnicids.has(post.unicid)) {
-                        // Mark both the original and duplicate as hidden
+                        // Сховати як оригінал, так і дублікат
                         uniqueUnicids.set(post.unicid, null);
-                        console.log(`Duplicate found with unicid: ${post.unicid}, hiding both.`);
+                        console.log(`Знайдено дублікат з unicid: ${post.unicid}, ховаємо обидва.`);
                     } else {
                         uniqueUnicids.set(post.unicid, {
                             id: post.id,
@@ -60,52 +60,47 @@ function findUserPackages(phoneNumber) {
                             lockerWidth: locker.width,
                             lockerLength: locker.length,
                             purpose: post.purpose,
-                            terminalId: terminal.id // Adding terminal ID for identification
+                            terminalId: terminal.id // Додаємо ID термінала для ідентифікації
                         });
-                        console.log(`Added package with unicid: ${post.unicid}`);
+                        console.log(`Додано пакет з unicid: ${post.unicid}`);
                     }
                 } else {
-                    console.log(`Post does not match recipient phone or purpose.`);
+                    console.log(`Пост не відповідає телефону отримувача або меті.`);
                 }
             });
         });
     });
 
-    // Filter out the packages marked as null (duplicates)
+    // Фільтруємо пакети, помічені як null (дублікати)
     foundPackages.push(...Array.from(uniqueUnicids.values()).filter(pkg => pkg !== null));
 
-    console.log(`Found packages: ${JSON.stringify(foundPackages)}`);
+    console.log(`Знайдені пакети: ${JSON.stringify(foundPackages)}`);
     return foundPackages;
 }
 
-
-
-
-
-
-// Function to retrieve the package
+// Функція для отримання пакета
 function receivePackage(terminalId, lockerType, postId) {
     const terminals = JSON.parse(localStorage.getItem('parcelTerminals')) || [];
 
-    // Find the required terminal and locker
+    // Знайти необхідний термінал і ячейку
     const terminal = terminals.find(t => t.id === terminalId);
     const locker = terminal.lockers.find(l => l.type === lockerType);
     const post = locker.posts.find(p => p.id === postId);
 
     if (post && post.status === 'occupied') {
-        post.status = 'free'; // Free the locker
+        post.status = 'free'; // Вивільнити ячейку
         post.assignedTo = null;
         post.sender = { name: '', phone: '' };
         post.recipient = { name: '', phone: '' };
         post.purpose = null;
         
-        // Save changes to local storage
+        // Зберегти зміни в локальному сховищі
         localStorage.setItem('parcelTerminals', JSON.stringify(terminals));
-        alert(`Посылка с ID ${postId} успешно получена и ячейка освобождена.`);
+        alert(`Посилка з ID ${postId} успішно отримана і ячейка звільнена.`);
         
-        // Reload the package list
+        // Перезавантажити список пакетів
         document.getElementById("authForm").dispatchEvent(new Event("submit"));
     } else {
-        alert(`Посылка с ID ${postId} уже освобождена или не найдена.`);
+        alert(`Посилка з ID ${postId} вже звільнена або не знайдена.`);
     }
 }

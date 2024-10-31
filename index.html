@@ -4,60 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Parcel Terminal</title>
+    <title>Поштовий термінал</title>
 </head>
 <body>
     <div class="container">
-        <a href="admin.html" class="admin-button">Admin Login</a>
-        <h1>Parcel Terminal</h1>
+        <a href="admin.html" class="admin-button">Вхід для адміністратора</a>
+        <h1>Поштовий термінал</h1>
 
-        <!-- Начальный экран с выбором действия -->
+        <!-- Початковий екран з вибором дії -->
         <div id="actionSelection">
-            <h2>Выберите действие</h2>
-            <button id="sendPackage">Отправить посылку</button>
-            <button id="retrievePackage">Забрать посылку</button>
+            <h2>Виберіть дію</h2>
+            <button id="sendPackage">Відправити посилку</button>
+            <button id="retrievePackage">Забрати посилку</button>
         </div>
 
-        <!-- Форма отправки посылки -->
+        <!-- Форма відправки посилки -->
         <form id="parcelForm" style="display: none;">
-            <label for="senderCity">Select Sender City:</label>
+            <label for="senderCity">Виберіть місто відправника:</label>
             <select id="senderCity"></select>
 
-            <label for="senderTerminal">Select Sender Terminal:</label>
+            <label for="senderTerminal">Виберіть термінал відправника:</label>
             <select id="senderTerminal"></select>
 
-            <label for="packageWidth">Package Width (cm):</label>
+            <label for="packageWidth">Ширина посилки (см):</label>
             <input type="number" id="packageWidth" required>
 
-            <label for="packageLength">Package Length (cm):</label>
+            <label for="packageLength">Довжина посилки (см):</label>
             <input type="number" id="packageLength" required>
 
             <div id="lockerDimensions" style="margin-top: 10px; display: none;">
-                <strong>Locker Dimensions:</strong>
+                <strong>Розміри шафи:</strong>
                 <p id="dimensionsText"></p>
             </div>
 
-            <h2>Sender Information</h2>
-            <label for="senderName">Name:</label>
+            <h2>Інформація про відправника</h2>
+            <label for="senderName">Ім'я:</label>
             <input type="text" id="senderName" required>
 
-            <label for="senderPhone">Phone:</label>
+            <label for="senderPhone">Телефон:</label>
             <input type="tel" id="senderPhone" required>
 
-            <h2>Receiver Information</h2>
-            <label for="receiverCity">Select Receiver City:</label>
+            <h2>Інформація про отримувача</h2>
+            <label for="receiverCity">Виберіть місто отримувача:</label>
             <select id="receiverCity"></select>
 
-            <label for="receiverTerminal">Select Receiver Terminal:</label>
+            <label for="receiverTerminal">Виберіть термінал отримувача:</label>
             <select id="receiverTerminal"></select>
 
-            <label for="receiverName">Name:</label>
+            <label for="receiverName">Ім'я:</label>
             <input type="text" id="receiverName" required>
 
-            <label for="receiverPhone">Phone:</label>
+            <label for="receiverPhone">Телефон:</label>
             <input type="tel" id="receiverPhone" required>
 
-            <button type="submit">Submit</button>
+            <button type="submit">Надіслати</button>
         </form>
 
         <div id="lockerResult"></div>
